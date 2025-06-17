@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="src/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <title>Rain Check</title>
+  </head>
+  <body>
+    <video autoplay muted loop id="bg-video">
+      <source src="clouds.mp4" type="video/mp4" />
+    </video>
+
+    <label for="language-select" class="language-label">Choose your language:</label>
+    <select id="language-select" class="language-select">
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="zu">Zulu</option>
+      <option value="pt">Português</option>
+      <option value="sw">Swahili</option>
+    </select>
+
+    <!-- Only ONE greeting element -->
+    <h1 id="greeting">Loading greeting...</h1>
+
+    <div class="weather-app">
+      <header>
+        <form class="search-form" id="search-form">
+          <input
+            type="search"
+            placeholder="Enter a city.."
+            required
+            id="search-form-input"
+            class="search-form-input"
+          />
+          <input type="submit" value="Search" class="search-form-button" />
+        </form>
+      </header>
+      <main>
+        <div class="weather-app-data">
+          <div>
+            <h1 class="weather-app-city" id="city">Durban</h1>
+            <p class="weather-app-details">
+              <span id="time">14:50 </span>,
+              <span id="description">Tuesday , Scattered clouds </span>
+              <br />
+              Humidity: <strong id="humidity">66%</strong>, Wind:
+              <strong id="wind-speed">3.15</strong> km/h
+            </p>
+          </div>
+          <div class="weather-app-temperature-container">
+            <div id="icon">🌤️</div>
+            <div class="weather-app-temperature" id="temperature">23</div>
+            <div class="weather-app-unit">°C</div>
+          </div>
+        </div>
+
+        <p class="weather-quote">"Even the storms are a part of His plan ☁️"</p>
+      </main>
+
+      <footer>
+        This project was coded by
+        <a href="" target="_blank">Amanda Bilai</a>,
+        is
+        <a href="" target="_blank">open-sourced on GitHub</a>
+        and
+        <a href="" target="_blank">hosted on Netlify</a>.
+      </footer>
+    </div>
+
+    <script src="src/index.js"></script>
+  </body>
+</html>
