@@ -5,30 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="src/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
-    <title>Rain Check</title>
+    <title>Rain Check </title>
   </head>
   <body>
-    <video autoplay muted loop id="bg-video">
-      <source src="clouds.mp4" type="video/mp4" />
-    </video>
-
-    <label for="language-select" class="language-label">Choose your language:</label>
-    <select id="language-select" class="language-select">
-      <option value="en">English</option>
-      <option value="fr">Français</option>
-      <option value="es">Español</option>
-      <option value="zu">Zulu</option>
-      <option value="pt">Português</option>
-      <option value="sw">Swahili</option>
-    </select>
-
-    <!-- Only ONE greeting element -->
-    <h1 id="greeting">Loading greeting...</h1>
+    <video autoplay muted loop id="bg-video" style="position: fixed; top: 0; left: 0; min-width: 100%; min-height: 100%; object-fit: cover; z-index: -1;">
+  <source src="clouds.mp4" type="video/mp4" />
+  
+</video>
 
     <div class="weather-app">
+      <label for="language-select" class="language-label">Choose your language:</label>
+<select id="language-select" class="language-select">
+  <option value="en">English</option>
+  <option value="fr">Français</option>
+  <option value="es">Español</option>
+  <option value="zu">Zulu</option>
+  <option value="pt">Português</option>
+  <option value="sw">Swahili</option>
+</select>
+
+<h1 id="greeting">Hi there 👋🏽</h1>
+
       <header>
         <form class="search-form" id="search-form">
           <input
@@ -44,38 +47,41 @@
       <main>
         <div class="weather-app-data">
           <div>
-            <h1 class="weather-app-city" id="city">Durban</h1>
+            <h1 class="weather-app-city" id="city"></h1>
             <p class="weather-app-details">
-              <span id="time">14:50 </span>,
-              <span id="description">Tuesday , Scattered clouds </span>
+              <span id="time"></span>,
+              <span id="description"></span>
               <br />
-              <div id="forecast" class="weather-forecast">
-
-              Humidity: <strong id="humidity">66%</strong>, Wind:
-              <strong id="wind-speed">3.15</strong> km/h
+              Humidity: <strong id="humidity"></strong>, Wind:
+              <strong id="wind-speed"></strong>
             </p>
-            </div>
           </div>
           <div class="weather-app-temperature-container">
-            <div id="icon">🌤️</div>
-            <div class="weather-app-temperature" id="temperature">23</div>
+            <div id="icon"></div>
+            <div class="weather-app-temperature" id="temperature"></div>
             <div class="weather-app-unit">°C</div>
           </div>
         </div>
+        <div class="weather-forecast" id="forecast"></div>
+        <p class="weather-quote">
+  "Wherever you go, no matter what the weather, always bring your own sunshine." — Anthony J. D'Angelo
+</p>
 
-        <p class="weather-quote">"Even the storms are a part of His plan ☁️"</p>
       </main>
 
       <footer>
         This project was coded by
-        <a href="" target="_blank">Amanda Bilai</a>,
+        <a href="" target="_blank"> Amanda Bilai </a>,
         is
-        <a href="" target="_blank">open-sourced on GitHub</a>
+        <a href="" target="_blank"
+          >open-sourced on GitHub</a
+        >
         and
-        <a href="" target="_blank">hosted on Netlify</a>.
+        <a href="" target="_blank"
+          >hosted on Netlify</a
+        >
       </footer>
     </div>
-
     <script src="src/index.js"></script>
   </body>
 </html>
