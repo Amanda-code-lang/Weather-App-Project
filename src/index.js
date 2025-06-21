@@ -19,6 +19,47 @@ function refreshWeather(response) {
 
   // Update background video based on weather condition
   setBackground(response.data.condition.main);
+
+  // Fetch and display 7-day forecast for the same city
+  getForecast(response.data.coordinates.latitude, response.data.coordinates.longitude);
+}
+
+function getForecast(lat, lon) {
+  let apiKey = "b2a5adcct04b33178913oc335f405433";
+  let forecastUrl = `https://api.shecodes.io/weather/v1/forecast?lat=${lat}&lon=${lon}&key=${apiKey}&units=metric`;
+
+  axios.get(forecastUrl).then(function (response) {
+    displayForecast(response.data.daily);
+  }).catch(function () {
+    console.log("Forecast fetch failed");
+  });
+}
+
+function displayForecast(dailyForecast) {
+  let forecastHtml = "";
+  let forecastElement = document.querySelector("#forecast");
+  if (!forecastElement) return;
+
+  dailyForecast.slice(0, 7).forEach(function (dayData) {
+    let date = new Date(dayData.time * 1000);
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    let dayName = days[date.getDay()];
+    let iconUrl = dayData.condition.icon_url;
+    let maxTemp = Math.round(dayData.temperature.maximum);
+    let minTemp = Math.round(dayData.temperature.minimum);
+
+    forecastHtml += `
+      <div class="weather-forecast-day">
+        <div class="weather-forecast-date">${dayName}</div>
+        <img src="${iconUrl}" alt="Weather icon" class="weather-forecast-icon" />
+        <div class="weather-forecast-temperatures">
+          <strong>${maxTemp}º</strong> / ${minTemp}º
+        </div>
+      </div>
+    `;
+  });
+
+  forecastElement.innerHTML = forecastHtml;
 }
 
 function formatDate(date) {
@@ -43,40 +84,18 @@ function formatDate(date) {
 }
 
 function searchCity(city) {
-  let apiKey = "b2a5adcct04b33178913oc335f405433";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
-  axios.get(apiUrl).then(refreshWeather);
+  let apiKey = "3594o0ecd215cb354fba04fbb4c0bt7f";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(refreshWeather).catch(() => {
+    alert("City not found. Please try another city.");
+  });
 }
 
 function handleSearchSubmit(event) {
   event.preventDefault();
   let searchInput = document.querySelector("#search-form-input");
-  searchCity(searchInput.value);
-}
-
-function displayForecast() {
-  let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
-  let forecastHtml = "";
-
-  days.forEach(function (day) {
-    forecastHtml +=
-      `
-      <div class="weather-forecast-day">
-        <div class="weather-forecast-date">${day}</div>
-        <div class="weather-forecast-icon">🌤️</div>
-        <div class="weather-forecast-temperatures">
-          <div class="weather-forecast-temperature">
-            <strong>15º</strong>
-          </div>
-          <div class="weather-forecast-temperature">9º</div>
-        </div>
-      </div>
-    `;
-  });
-
-  let forecastElement = document.querySelector("#forecast");
-  if (forecastElement) {
-    forecastElement.innerHTML = forecastHtml;
+  if (searchInput.value.trim() !== "") {
+    searchCity(searchInput.value);
   }
 }
 
@@ -96,8 +115,6 @@ function updateGreeting() {
 }
 
 document.getElementById("language-select").addEventListener("change", updateGreeting);
-
-
 updateGreeting();
 
 let searchFormElement = document.querySelector("#search-form");
@@ -105,7 +122,6 @@ searchFormElement.addEventListener("submit", handleSearchSubmit);
 
 // Initial load for weather and forecast
 searchCity("Paris");
-displayForecast();
 
 const video = document.getElementById("bg-video");
 
@@ -115,15 +131,14 @@ function setBackground(weather) {
     return;
   }
 
- 
   const weatherLower = weather.toLowerCase();
 
   if (weatherLower.includes("rain")) {
     video.src = "cloudy.mp4";
   } else if (weatherLower.includes("clear") || weatherLower.includes("sunny")) {
-    video.src = "sunny.mp4";  // make sure this file exists in your folder
+    video.src = "sunny.mp4";
   } else if (weatherLower.includes("cloud")) {
-    video.src = "clouds.mp4";  // make sure this file exists too
+    video.src = "clouds.mp4";  
   } else {
     video.src = "clouds.mp4";
   }
